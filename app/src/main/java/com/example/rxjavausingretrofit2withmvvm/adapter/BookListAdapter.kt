@@ -11,7 +11,7 @@ class BookListAdapter : RecyclerView.Adapter<BookListAdapter.MyViewHolder>() {
 
     var bookListData = ArrayList<VolumeInfo>()
 
-    class MyViewHolder(private val binding :RecyclerListBinding) : RecyclerView.ViewHolder(binding.root){
+   inner class MyViewHolder(private val binding :RecyclerListBinding) : RecyclerView.ViewHolder(binding.root){
 
         val title = binding.title
         val description = binding.description

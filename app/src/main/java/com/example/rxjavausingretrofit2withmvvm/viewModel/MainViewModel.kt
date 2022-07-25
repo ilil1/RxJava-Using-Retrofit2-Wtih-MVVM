@@ -1,5 +1,6 @@
 package com.example.rxjavausingretrofit2withmvvm.viewModel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.rxjavausingretrofit2withmvvm.network.BookListModel
@@ -12,14 +13,11 @@ import io.reactivex.schedulers.Schedulers
 
 class MainViewModel : ViewModel() {
 
-    lateinit var bookList: MutableLiveData<BookListModel>
+    private val _bookList: MutableLiveData<BookListModel> = MutableLiveData()
+    val bookList : LiveData<BookListModel> get() = _bookList
 
 
-    init {
-        bookList = MutableLiveData()
-    }
-
-    fun getBookListObserver() : MutableLiveData<BookListModel>{
+    fun getBookListObserver() : LiveData<BookListModel>{
         return bookList
     }
 
@@ -39,11 +37,11 @@ class MainViewModel : ViewModel() {
             }
 
             override fun onNext(t: BookListModel) {
-                bookList.postValue(t)
+                _bookList.postValue(t)
             }
 
             override fun onError(e: Throwable) {
-                bookList.postValue(null)
+                _bookList.postValue(null)
             }
 
             override fun onComplete() {
