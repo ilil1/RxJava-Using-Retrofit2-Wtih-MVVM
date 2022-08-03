@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
 import com.example.rxjavausingretrofit2withmvvm.adapter.BookListAdapter
 import com.example.rxjavausingretrofit2withmvvm.databinding.ActivityMainBinding
+import com.example.rxjavausingretrofit2withmvvm.network.VolumeInfo
 import com.example.rxjavausingretrofit2withmvvm.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -37,13 +38,21 @@ class MainActivity : AppCompatActivity() {
     private fun startObserving() {
         viewModel.bookList.observe(this) {
             if (it != null) {
-                // update adapter
-                bookListAdapter.bookListData = it.items
-                bookListAdapter.notifyDataSetChanged()
+                onGetBookListSuccess(it.items)
             } else {
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                onGetBookListError()
             }
         }
+    }
+
+    private fun onGetBookListSuccess(books: ArrayList<VolumeInfo>) {
+        // update adapter
+        bookListAdapter.bookListData = books
+        bookListAdapter.notifyDataSetChanged()
+    }
+
+    private fun onGetBookListError() {
+        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
     }
 
     private fun initSearchBox() {
