@@ -15,12 +15,17 @@ import com.example.rxjavausingretrofit2withmvvm.network.VolumeInfo
 import com.example.rxjavausingretrofit2withmvvm.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
+
+    //인스턴스는 application에서 Lazy하게 초기화됨.
     private val compositionRoot get() = (application as MyApplication).appCompositionRoot
 
     private lateinit var binding: ActivityMainBinding
+
+    //굳이 ViewModelProvider를 써야지 Factory를 통해 DI 작업 후 ViewModel 생성 가능.
     private val viewModel by lazy {
         ViewModelProvider(this, compositionRoot.viewModelFactory)[MainViewModel::class.java]
     }
+
     private val bookListAdapter by lazy {
         BookListAdapter()
     }

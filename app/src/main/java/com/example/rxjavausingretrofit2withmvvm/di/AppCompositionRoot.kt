@@ -9,6 +9,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class AppCompositionRoot {
+
     private val baseUrl = "https://www.googleapis.com/books/v1/" //volums?q=harry
 
     private val retroInstance by lazy {
@@ -24,9 +25,12 @@ class AppCompositionRoot {
     }
 
     private val bookRepository get() = BookRepositoryImpl(retroService)
-    val viewModelSupplier get() = Supplier {
-        MainViewModel(bookRepository)
-    }
+
+    //굳이 Supplier을 쓸 필요가 있는지 의문
+    private val viewModelSupplier
+        get() = Supplier {
+            MainViewModel(bookRepository)
+        }
 
     val viewModelFactory get() = MainViewModel.Factory(viewModelSupplier)
 }

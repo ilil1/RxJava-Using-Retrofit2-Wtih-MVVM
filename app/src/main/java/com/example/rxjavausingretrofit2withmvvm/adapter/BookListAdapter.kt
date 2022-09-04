@@ -9,6 +9,7 @@ import com.example.rxjavausingretrofit2withmvvm.databinding.RecyclerListBinding
 import com.example.rxjavausingretrofit2withmvvm.network.VolumeInfo
 
 class BookListAdapter : RecyclerView.Adapter<BookListAdapter.MyViewHolder>() {
+
     var bookListData = ArrayList<VolumeInfo>()
 
     class MyViewHolder(private val binding: RecyclerListBinding) :
